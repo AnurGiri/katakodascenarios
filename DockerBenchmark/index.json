@@ -1,12 +1,12 @@
 {
-  "title": "First test on katakoda",
-  "description": "test",
+  "title": "Docker Benchmark",
+  "description": "Docker Benchmark for Security",
   "difficulty": "Beginner",
   "time": "1 hours",
   "details": {
     "steps": [
       {
-        "title": "Copy on write",
+        "title": "Deomon Configuration",
         "text": "step1.md"
       },
       {
