@@ -1,3 +1,9 @@
+Run tomacat container
+
+`git clone https://github.com/softwareyoga/docker-tomcat-tutorial.git`{{execute}} 
+`cd docker-tomcat-tutorial`{{execute}} 
+`cd docker build -t mywebapp .`{{execute}} 
+`docker run -p 80:8080 mywebapp`{{execute}}
 
 List the containers
 
