@@ -76,6 +76,13 @@ Container Images and Build File Best Practices:
 
 `clear`{{execute}}
 
+9.Set the 'on-failure' container restart policy to 5
+
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}''`{{execute}}
+
+`clear`{{execute}}
+
+10.
 
 Build the second image from Dockerfile.
 
