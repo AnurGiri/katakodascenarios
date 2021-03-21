@@ -10,6 +10,18 @@ Run tomcat container
 
 `docker run -d -p 80:8080 mywebapp`{{execute}}
 
+Run Python application container
+
+`git clone https://github.com/CiscoIOx/docker-demo-apps.git -b master`{{execute}} 
+
+`cd docker-demo-apps/simple-python-app`{{execute}} 
+
+`docker build -t iox-simple-py:1.0 .`{{execute}} 
+
+`clear`{{execute}}
+
+`docker run -d --name iox-simple-py iox-simple-py:1.0`{{execute}}
+
 List the containers
 
 `docker ps`{{execute}}
