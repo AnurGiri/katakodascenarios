@@ -6,11 +6,11 @@
   "details": {
     "steps": [
       {
-        "title": "Deomon Configuration",
+        "title": "Docker Containers and images",
         "text": "step1.md"
       },
       {
-        "title": "Image and container layers on-disk",
+        "title": "Run Docker Benchmark",
         "text": "step2.md"
       }
     ],
@@ -22,7 +22,7 @@
     }
   },
   "environment": {
-    "uilayout": "editor-terminal"
+    "uilayout": "terminal"
   },
   "backend": {
     "imageid": "ubuntu:2004"
