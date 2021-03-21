@@ -1,4 +1,4 @@
-Run tomacat container
+Run tomcat container
 
 `git clone https://github.com/softwareyoga/docker-tomcat-tutorial.git`{{execute}} 
 
