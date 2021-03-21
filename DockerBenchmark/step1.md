@@ -28,6 +28,7 @@ Run Konex AC Container
 
 `docker run -d -p 8087:8087 --name amxce_ac anugiri86/amxce_ac:1.0`{{execute}}
 
+`clear`{{execute}}
 
 List the containers
 
@@ -39,17 +40,21 @@ Container Images and Build File Best Practices:
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: User={{	.Config.User }}'`{{execute}}
 
+`clear`{{execute}}
+
 2.Add HEALTHCHECK instruction to the container image
 
-`docker inspect --format='{{ .Config.Healthcheck }}' amxceac`{{execute}}
+`docker inspect --format='{{ .Config.Healthcheck }}' anugiri86/amxce_ac:1.0`{{execute}}
 
 3.Use COPY instead of ADD in Dockerfile
 
-`docker history amxce_ac:1.0`{{execute}}
+`docker history anugiri86/amxce_ac:1.0`{{execute}}
 
 4.Do not use privileged containers
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
+
+`clear`{{execute}}
 
 5.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
 
@@ -59,6 +64,8 @@ Container Images and Build File Best Practices:
 
 `docker ps --quiet | xargs docker inspect --format '{{ .Id }}: Ports={{.NetworkSettings.Ports }}'`{{execute}}
 
+`clear`{{execute}}
+
 7.Limit memory usage for container
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Memory={{.HostConfig.Memory }}'`{{execute}}
@@ -66,6 +73,8 @@ Container Images and Build File Best Practices:
 8.Mount container's root filesystem as read only
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
+
+`clear`{{execute}}
 
 
 Build the second image from Dockerfile.
