@@ -6,7 +6,9 @@ Run tomcat container
 
 `docker build -t mywebapp .`{{execute}} 
 
-`docker run -p 80:8080 mywebapp`{{execute}}
+`clear`{{execute}}
+
+`docker run -d -p 80:8080 mywebapp`{{execute}}
 
 List the containers
 
