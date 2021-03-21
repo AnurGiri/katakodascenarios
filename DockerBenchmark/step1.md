@@ -33,64 +33,39 @@ List the containers
 
 `docker ps`{{execute}}
 
+Container Images and Build File Best Practices:
+
+1.Create a user for the container
+
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: User={{	.Config.User }}'`{{execute}}
 
-Creating two Dockerfiles - Dockerfile.base and Dockerfile
-Using the first one to create an image called acme/my-base-image:1.0
+2.Add HEALTHCHECK instruction to the container image
 
-`touch Dockerfile.base`{{execute}}
+`docker inspect --format='{{ .Config.Healthcheck }}' amxceac`{{execute}}
 
+3.Use COPY instead of ADD in Dockerfile
 
-The second one is based on acme/my-base-image:1.0, but has some additional layers:
+`docker history amxce_ac:1.0`{{execute}}
 
-`touch Dockerfile`{{execute}}
+4.Do not use privileged containers
 
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
 
-`touch hello.sh`{{execute}}
+5.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
 
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Volumes={{ .Mounts}}'`{{execute}}
 
-Open and copy below content to Dockerfile.base
+6.Do not map privileged ports within containers
 
-`/root/cow-test/Dockerfile.base`{{open}}
+`docker ps --quiet | xargs docker inspect --format '{{ .Id }}: Ports={{.NetworkSettings.Ports }}'`{{execute}}
 
-<pre class="file"
- data-filename="/root/cow-test/Dockerfile.base"
-  data-target="replace">
-FROM ubuntu:18.04
-COPY . /app
-</pre>
+7.Limit memory usage for container
 
-Open and copy below content to Dockerfile
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Memory={{.HostConfig.Memory }}'`{{execute}}
 
-`/root/cow-test/Dockerfile`{{open}}
+8.Mount container's root filesystem as read only
 
-<pre class="file"
- data-filename="/root/cow-test/Dockerfile"
-  data-target="replace">
-FROM acme/my-base-image:1.0
-CMD /app/hello.sh
-</pre>
-
-
-Open and copy below content to hello.sh 
-
-`/root/cow-test/hello.sh`{{open}}
-
-<pre class="file"
- data-filename="/root/cow-test/hello.sh"
-  data-target="replace">
-#!/bin/sh
-echo "Hello world"
-</pre>
-
-Save the file, and make it executable:
-
-`chmod +x hello.sh`{{execute}}
-
-
-Build the image from first Dockerfile.base
-
-`docker build -t acme/my-base-image:1.0 -f Dockerfile.base .`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
 
 
 Build the second image from Dockerfile.
