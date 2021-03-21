@@ -1,9 +1,9 @@
 
-Create a directory "cow-test"
+List the containers
 
-`mkdir cow-test`{{execute}}
+`docker ps`{{execute}}
 
-`cd cow-test`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: User={{	.Config.User }}'`{{execute}}
 
 Creating two Dockerfiles - Dockerfile.base and Dockerfile
 Using the first one to create an image called acme/my-base-image:1.0
