@@ -22,6 +22,13 @@ Run Python application container
 
 `docker run -d --name iox-simple-py iox-simple-py:1.0`{{execute}}
 
+Run Konex AC Container
+
+`docker pull anugiri86/amxce_ac:1.0`{{execute}} 
+
+`docker run -d -p 8087:8087 --name amxce_ac anugiri86/amxce_ac:1.0`{{execute}}
+
+
 List the containers
 
 `docker ps`{{execute}}
