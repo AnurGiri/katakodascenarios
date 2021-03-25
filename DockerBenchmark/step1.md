@@ -52,7 +52,7 @@ List the containers
 
 `docker ps`{{execute}}
 
-Container Images and Build File Best Practices:
+Best Practices: Container Images and Build File 
 
 1.Create a user for the container
 
