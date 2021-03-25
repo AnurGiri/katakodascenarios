@@ -6,7 +6,7 @@
   "details": {
     "steps": [
       {
-        "title": "Docker Containers and images",
+        "title": "Best Practices: Docker Containers and images",
         "text": "step1.md"
       },
       {
