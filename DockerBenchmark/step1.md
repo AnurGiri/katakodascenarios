@@ -22,6 +22,14 @@ Run Python application container
 
 `docker run -d --name iox-simple-py iox-simple-py:1.0`{{execute}}
 
+Run Bookstore application container
+
+`docker pull anugiri86/book:v1`{{execute}} 
+
+`docker run -d -p 7777:7777 --name bookstore anugiri86/book:v1`{{execute}} 
+
+`clear`{{execute}}
+
 Run Konex AC Container
 
 `docker pull anugiri86/amxce_ac:1.0`{{execute}} 
