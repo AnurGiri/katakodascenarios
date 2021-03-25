@@ -22,13 +22,23 @@ Run Python application container
 
 `docker run -d --name iox-simple-py iox-simple-py:1.0`{{execute}}
 
-Run Bookstore application container
+Run Bookstore application container on TEA Server
 
 `docker pull anugiri86/book:v1`{{execute}} 
 
-`docker run -d -p 7777:7777 --name bookstore anugiri86/book:v1`{{execute}} 
+`docker network create amxce-net`{{execute}} 
+
+`docker run -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
 
 `clear`{{execute}}
+
+`docker pull anugiri86/tea240:v10`{{execute}} 
+
+`docker pull anugiri86/amxceteaagent:1.0`{{execute}} 
+
+`docker run -d -p 8777:8777 --name teaserver -h teaserver --network amxce-net anugiri86/tea240:v10`{{execute}} 
+
+`docker run -d --name teaagent -h teaagent --network amxce-net -e tea_server_url=http://teaserver:8777/tea -e amxce_containers_list=bookstore anugiri86/amxceteaagent:1.0`{{execute}} 
 
 Run Konex AC Container
 
