@@ -100,31 +100,3 @@ Container Images and Build File Best Practices:
 
 `clear`{{execute}}
 
-10.
-
-Build the second image from Dockerfile.
-
-`docker build -t acme/my-final-image:1.0 -f Dockerfile .`{{execute}}
-
-
-Check out the sizes of the images:
-
-`docker image ls`{{execute}}
-
-
-Check out the layers that comprise each image:
-
-`docker history acme/my-base-image:1.0`{{execute}}
-
-
-`docker history acme/my-final-image:1.0`{{execute}}
-
-
-Notice that all the layers are identical except the top layer of the second image. 
-All the other layers are shared between the two images, and are only stored once in /var/lib/docker/. 
-The new layer actually doesn’t take any room at all, because it is not changing any files, but only running a command.
-
-
-
-
-
