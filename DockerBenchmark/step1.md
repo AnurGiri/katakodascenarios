@@ -68,6 +68,16 @@ Best Practices: Container Images and Build File
 
 `docker history anugiri86/amxce_ac:1.0`{{execute}}
 
+`clear`{{execute}}
+
+`docker history anugiri86/tea240:v10`{{execute}}
+
+`clear`{{execute}}
+
+`docker history anugiri86/amxceteaagent:1.0`{{execute}}
+
+`clear`{{execute}}
+
 4.Do not use privileged containers
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
