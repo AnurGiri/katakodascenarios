@@ -98,13 +98,17 @@ Best Practices: Container Images and Build File
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Memory={{.HostConfig.Memory }}'`{{execute}}
 
-8.Mount container's root filesystem as read only
+8.Set container CPU priority appropriately
+
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: CpuShares={{.HostConfig.CpuShares }}''`{{execute}}
+
+9.Mount container's root filesystem as read only
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
 
 `clear`{{execute}}
 
-9.Set the 'on-failure' container restart policy to 5
+10.Set the 'on-failure' container restart policy to 5
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}''`{{execute}}
 
