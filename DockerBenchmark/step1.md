@@ -114,3 +114,13 @@ Best Practices: Container Images and Build File
 
 `clear`{{execute}}
 
+11.Use PIDs cgroup limit
+
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: PidsLimit={{.HostConfig.PidsLimit }}'`{{execute}}
+
+12.Do not use Docker's default bridge docker0
+
+`docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}''`{{execute}}
+
+
+
