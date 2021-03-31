@@ -36,7 +36,7 @@ Run Bookstore application container on TEA Server
 
 `docker pull anugiri86/amxceteaagent:1.0`{{execute}} 
 
-`docker run -d -p 8777:8777 --name teaserver -h teaserver --network amxce-net anugiri86/tea240:v10`{{execute}} 
+`docker run -d -p 8777:8777 --restart=on-failure:5 --name teaserver -h teaserver --network amxce-net anugiri86/tea240:v10`{{execute}} 
 
 `docker run -d --name teaagent -h teaagent --network amxce-net -e tea_server_url=http://teaserver:8777/tea -e amxce_containers_list=bookstore anugiri86/amxceteaagent:1.0`{{execute}} 
 
