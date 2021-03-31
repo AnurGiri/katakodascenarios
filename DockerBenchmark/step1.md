@@ -100,7 +100,7 @@ Best Practices: Container Images and Build File
 
 8.Set container CPU priority appropriately
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: CpuShares={{.HostConfig.CpuShares }}''`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: CpuShares={{.HostConfig.CpuShares }}'`{{execute}}
 
 9.Mount container's root filesystem as read only
 
