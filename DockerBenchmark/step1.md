@@ -8,7 +8,7 @@ Run tomcat container
 
 `clear`{{execute}}
 
-`docker run -d -p 80:8080 mywebapp`{{execute}}
+`docker run --memory 256m -d -p 80:8080 mywebapp`{{execute}}
 
 Run Python application container
 
@@ -20,7 +20,7 @@ Run Python application container
 
 `clear`{{execute}}
 
-`docker run -d --name iox-simple-py iox-simple-py:1.0`{{execute}}
+`docker run -d --privileged --name iox-simple-py iox-simple-py:1.0`{{execute}}
 
 Run Bookstore application container on TEA Server
 
@@ -28,7 +28,7 @@ Run Bookstore application container on TEA Server
 
 `docker network create amxce-net`{{execute}} 
 
-`docker run -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
+`docker run --cpu-shares 512 -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
 
 `clear`{{execute}}
 
