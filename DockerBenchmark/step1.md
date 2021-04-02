@@ -8,7 +8,7 @@ Run tomcat container
 
 `clear`{{execute}}
 
-`docker run --memory 256m -d -p 80:8080 tomcat`{{execute}}
+`docker run --memory 256m -d -p 80:8080 --name tomcat tomcat`{{execute}}
 
 Run Python application container
 
