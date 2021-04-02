@@ -80,47 +80,47 @@ Best Practices: Container Images and Build File
 
 4.Do not use privileged containers
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
 
 `clear`{{execute}}
 
 5.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Volumes={{ .Mounts}}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Volumes={{ .Mounts}}'`{{execute}}
 
 6.Do not map privileged ports within containers
 
-`docker ps --quiet | xargs docker inspect --format '{{ .Id }}: Ports={{.NetworkSettings.Ports }}'`{{execute}}
+`docker ps --quiet | xargs docker inspect --format '{{ .Name }}: Ports={{.NetworkSettings.Ports }}'`{{execute}}
 
 `clear`{{execute}}
 
 7.Limit memory usage for container
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: Memory={{.HostConfig.Memory }}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Memory={{.HostConfig.Memory }}'`{{execute}}
 
 8.Set container CPU priority appropriately
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: CpuShares={{.HostConfig.CpuShares }}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: CpuShares={{.HostConfig.CpuShares }}'`{{execute}}
 
 9.Mount container's root filesystem as read only
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
 
 `clear`{{execute}}
 
 10.Set the 'on-failure' container restart policy to 5
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}''`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}''`{{execute}}
 
 `clear`{{execute}}
 
 11.Use PIDs cgroup limit
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: PidsLimit={{.HostConfig.PidsLimit }}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: PidsLimit={{.HostConfig.PidsLimit }}'`{{execute}}
 
 12.Do not use Docker's default bridge docker0
 
-`docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}''`{{execute}}
+`docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}'`{{execute}}
 
 
 
