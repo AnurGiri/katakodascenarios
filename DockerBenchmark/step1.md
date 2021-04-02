@@ -52,6 +52,10 @@ List the containers
 
 `docker ps`{{execute}}
 
+Best Practices: Docker daemon configuration
+
+`docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}'`{{execute}}
+
 Best Practices: Container Images and Build File 
 
 1.Create a user for the container
