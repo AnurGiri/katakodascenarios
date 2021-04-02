@@ -44,7 +44,7 @@ Run Konex AC Container
 
 `docker pull anugiri86/amxce_ac:1.0`{{execute}} 
 
-`docker run -d -p 8087:8087 --read-only --name amxce_ac anugiri86/amxce_ac:1.0`{{execute}}
+`docker run -d -p 8087:8087 --pids-limit 100 --read-only --name amxce_ac anugiri86/amxce_ac:1.0`{{execute}}
 
 `clear`{{execute}}
 
