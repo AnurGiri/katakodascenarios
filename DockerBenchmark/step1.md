@@ -4,11 +4,11 @@ Run tomcat container
 
 `cd docker-tomcat-tutorial`{{execute}} 
 
-`docker build -t mywebapp .`{{execute}} 
+`docker build -t tomcat .`{{execute}} 
 
 `clear`{{execute}}
 
-`docker run --memory 256m -d -p 80:8080 mywebapp`{{execute}}
+`docker run --memory 256m -d -p 80:8080 tomcat`{{execute}}
 
 Run Python application container
 
@@ -20,7 +20,7 @@ Run Python application container
 
 `clear`{{execute}}
 
-`docker run -d --privileged --name iox-simple-py iox-simple-py:1.0`{{execute}}
+`docker run -d --privileged --name python-app iox-simple-py:1.0`{{execute}}
 
 Run Bookstore application container on TEA Server
 
@@ -28,13 +28,15 @@ Run Bookstore application container on TEA Server
 
 `docker network create amxce-net`{{execute}} 
 
-`docker run --cpu-shares 512 -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
+`docker run -security-opt=no-new-privileges --cpu-shares 512 -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
 
 `clear`{{execute}}
 
 `docker pull anugiri86/tea240:v10`{{execute}} 
 
 `docker pull anugiri86/amxceteaagent:1.0`{{execute}} 
+
+`clear`{{execute}}
 
 `docker run -d -p 8777:8777 --restart=on-failure:5 --name teaserver -h teaserver --network amxce-net anugiri86/tea240:v10`{{execute}} 
 
@@ -60,13 +62,17 @@ Best Practices: Container Images and Build File
 
 1.Create a user for the container
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Id }}: User={{	.Config.User }}'`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: User={{	.Config.User }}'`{{execute}}
 
 `clear`{{execute}}
 
 2.Add HEALTHCHECK instruction to the container image
 
 `docker inspect --format='{{ .Config.Healthcheck }}' anugiri86/amxce_ac:1.0`{{execute}}
+
+`docker inspect --format='{{ .Config.Healthcheck }}' anugiri86/tea240:v10`{{execute}}
+
+`docker inspect --format='{{ .Config.Healthcheck }}' anugiri86/amxceteaagent:1.0`{{execute}}
 
 3.Use COPY instead of ADD in Dockerfile
 
@@ -82,49 +88,56 @@ Best Practices: Container Images and Build File
 
 `clear`{{execute}}
 
-4.Do not use privileged containers
+4.Do not use update instructions alone in the Dockerfile
+
+`docker history anugiri86/amxceteaagent:1.0`{{execute}}
+
+5.Do not use privileged containers
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
 
 `clear`{{execute}}
 
-5.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
+6.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Volumes={{ .Mounts}}'`{{execute}}
 
-6.Do not map privileged ports within containers
+7.Do not map privileged ports within containers
 
 `docker ps --quiet | xargs docker inspect --format '{{ .Name }}: Ports={{.NetworkSettings.Ports }}'`{{execute}}
 
 `clear`{{execute}}
 
-7.Limit memory usage for container
+8.Limit memory usage for container
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Memory={{.HostConfig.Memory }}'`{{execute}}
 
-8.Set container CPU priority appropriately
+9.Set container CPU priority appropriately
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: CpuShares={{.HostConfig.CpuShares }}'`{{execute}}
 
-9.Mount container's root filesystem as read only
+10.Mount container's root filesystem as read only
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
 
 `clear`{{execute}}
 
-10.Set the 'on-failure' container restart policy to 5
+11.Set the 'on-failure' container restart policy to 5
 
-`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}''`{{execute}}
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}'`{{execute}}
 
 `clear`{{execute}}
 
-11.Use PIDs cgroup limit
+12.Use PIDs cgroup limit
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: PidsLimit={{.HostConfig.PidsLimit }}'`{{execute}}
 
-12.Do not use Docker's default bridge docker0
+13.Do not use Docker's default bridge docker0
 
 `docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}'`{{execute}}
 
+14.Restrict container from acquiring additional privileges
+
+`docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: SecurityOpt={{.HostConfig.SecurityOpt }}'`{{execute}}
 
 
