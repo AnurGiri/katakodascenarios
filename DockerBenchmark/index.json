@@ -1,12 +1,12 @@
 {
-  "title": "Docker Benchmark",
-  "description": "Docker Benchmark for Security",
+  "title": "Docker Benchmark for Security",
+  "description": "",
   "difficulty": "Beginner",
   "time": "1 hours",
   "details": {
     "steps": [
       {
-        "title": "Best Practices: Docker Containers and images",
+        "title": "Best Practices: Docker",
         "text": "step1.md"
       },
       {
