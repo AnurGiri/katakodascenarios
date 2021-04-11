@@ -28,7 +28,7 @@ Run Bookstore application container on TEA Server
 
 `docker network create amxce-net`{{execute}} 
 
-`docker run -security-opt=no-new-privileges --cpu-shares 512 -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
+`docker run --security-opt=no-new-privileges --cpu-shares 512 -d -p 7777:7777 --name bookstore --network amxce-net anugiri86/book:v1`{{execute}} 
 
 `clear`{{execute}}
 
@@ -55,6 +55,8 @@ List the containers
 `docker ps`{{execute}}
 
 Best Practices: Docker daemon configuration
+
+1.Restrict network traffic between containers (Ensure that the ' --icc ' parameter is set to ' false ')
 
 `docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}'`{{execute}}
 
@@ -88,56 +90,54 @@ Best Practices: Container Images and Build File
 
 `clear`{{execute}}
 
-4.Do not use update instructions alone in the Dockerfile
-
-`docker history anugiri86/amxceteaagent:1.0`{{execute}}
-
-5.Do not use privileged containers
+4.Do not use privileged containers
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Privileged={{.HostConfig.Privileged }}'`{{execute}}
 
 `clear`{{execute}}
 
-6.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
+5.Do not mount sensitive host system directories (/etc,/sys,/usr) on containers 
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Volumes={{ .Mounts}}'`{{execute}}
 
-7.Do not map privileged ports within containers
+6.Do not map privileged ports within containers
 
 `docker ps --quiet | xargs docker inspect --format '{{ .Name }}: Ports={{.NetworkSettings.Ports }}'`{{execute}}
 
 `clear`{{execute}}
 
-8.Limit memory usage for container
+7.Limit memory usage for container
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: Memory={{.HostConfig.Memory }}'`{{execute}}
 
-9.Set container CPU priority appropriately
+8.Set container CPU priority appropriately
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: CpuShares={{.HostConfig.CpuShares }}'`{{execute}}
 
-10.Mount container's root filesystem as read only
+9.Mount container's root filesystem as read only
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }} ReadonlyRootfs={{.HostConfig.ReadonlyRootfs }}'`{{execute}}
 
 `clear`{{execute}}
 
-11.Set the 'on-failure' container restart policy to 5
+10.Set the 'on-failure' container restart policy to 5
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}:RestartPolicyName={{ .HostConfig.RestartPolicy.Name }} MaximumRetryCount={{.HostConfig.RestartPolicy.MaximumRetryCount }}'`{{execute}}
 
 `clear`{{execute}}
 
-12.Use PIDs cgroup limit
+11.Use PIDs cgroup limit
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: PidsLimit={{.HostConfig.PidsLimit }}'`{{execute}}
 
-13.Do not use Docker's default bridge docker0
+12.Do not use Docker's default bridge docker0
 
 `docker network ls --quiet | xargs xargs docker network inspect --format '{{ .Name }}:{{ .Options }}'`{{execute}}
 
-14.Restrict container from acquiring additional privileges
+13.Restrict container from acquiring additional privileges
 
 `docker ps --quiet --all | xargs docker inspect --format '{{ .Name }}: SecurityOpt={{.HostConfig.SecurityOpt }}'`{{execute}}
+
+`clear`{{execute}}
 
 
